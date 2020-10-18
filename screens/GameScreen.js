@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     },
     list: {
         flexGrow: 1,
-        alignItems: 'center',
+        // alignItems: 'center',
         justifyContent: 'flex-end'
     },
     listItem: {
