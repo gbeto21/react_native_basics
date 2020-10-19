@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import {
     View,
-    Text,
     StyleSheet,
     Button,
     TouchableWithoutFeedback,
     Keyboard,
     Alert,
-    Dimensions
+    Dimensions,
+    ScrollView,
+    KeyboardAvoidingView
 } from 'react-native'
 
 import Card from '../components/Card'
@@ -66,45 +67,51 @@ const StartGameScreen = props => {
     }
 
     return (
-        <TouchableWithoutFeedback onPress={
-            () => {
-                Keyboard.dismiss()
-            }
-        }>
-            <View style={styles.screen}>
-                <TitleText style={styles.title}>Start a New Game!</TitleText>
-                <Card style={styles.inputContainer}>
-                    <BodyText>Select a Number</BodyText>
-                    <Input
-                        style={styles.input}
-                        blurOnSubmit
-                        autoCapitalize='none'
-                        autoCorrect={false}
-                        keyboardType="numeric"
-                        maxLength={2}
-                        onChangeText={numberInputHandler}
-                        value={enteredValue}
-                    />
-                    <View style={styles.buttonContainer}>
-                        <View style={styles.button}>
-                            <Button
-                                title="Reset"
-                                onPress={resetInputHandler}
-                                color={Colors.accent}
+        <ScrollView>
+            <KeyboardAvoidingView
+                behavior='position'
+                keyboardVerticalOffset={30}>
+                <TouchableWithoutFeedback onPress={
+                    () => {
+                        Keyboard.dismiss()
+                    }
+                }>
+                    <View style={styles.screen}>
+                        <TitleText style={styles.title}>Start a New Game!</TitleText>
+                        <Card style={styles.inputContainer}>
+                            <BodyText>Select a Number</BodyText>
+                            <Input
+                                style={styles.input}
+                                blurOnSubmit
+                                autoCapitalize='none'
+                                autoCorrect={false}
+                                keyboardType="numeric"
+                                maxLength={2}
+                                onChangeText={numberInputHandler}
+                                value={enteredValue}
                             />
-                        </View>
-                        <View style={styles.button}>
-                            <Button
-                                title="Confirm"
-                                onPress={confirmInputHandler}
-                                color={Colors.primary}
-                            />
-                        </View>
+                            <View style={styles.buttonContainer}>
+                                <View style={styles.button}>
+                                    <Button
+                                        title="Reset"
+                                        onPress={resetInputHandler}
+                                        color={Colors.accent}
+                                    />
+                                </View>
+                                <View style={styles.button}>
+                                    <Button
+                                        title="Confirm"
+                                        onPress={confirmInputHandler}
+                                        color={Colors.primary}
+                                    />
+                                </View>
+                            </View>
+                        </Card>
+                        {confirmedOutput}
                     </View>
-                </Card>
-                {confirmedOutput}
-            </View>
-        </TouchableWithoutFeedback>
+                </TouchableWithoutFeedback>
+            </KeyboardAvoidingView>
+        </ScrollView>
     )
 }
 
