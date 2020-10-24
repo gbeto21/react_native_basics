@@ -6,7 +6,9 @@ import { createAppContainer } from "react-navigation";
 import CategoriesScreen from "../screens/CategoriesScreen";
 import CategoryMealsScreen from "../screens/CategoryMealsScreen";
 import MealDetailScreen from "../screens/MealDetailScreen";
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
+
+import Colors from '../constants/colors'
 
 // const MealsNavigator = () => {
 //     return (
@@ -15,22 +17,26 @@ import { StyleSheet, Text, View } from 'react-native';
 //         </View>
 //     );
 // }
+
 const MealsNavigator = createStackNavigator({
-    Categories: CategoriesScreen,
+    Categories: {
+        screen: CategoriesScreen
+    },
     CategoryMeals: {
-        screen: CategoryMealsScreen
+        screen: CategoryMealsScreen,
     },
     MealDetail: MealDetailScreen
-})
+}, {
+    mode: 'modal',
+    // initialRouteName: 'Categories',
+    defaultNavigationOptions: {
+        headerStyle: {
+            backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : ''
+        },
+        headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primaryColor
+    }
+}
+)
 
 export default createAppContainer(MealsNavigator)
 // export default MealsNavigator
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
