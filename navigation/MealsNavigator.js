@@ -22,24 +22,37 @@ import colors from '../constants/colors';
 //     );
 // }
 
-const MealsNavigator = createStackNavigator({
-    Categories: {
-        screen: CategoriesScreen
+const defaultStackNavOptions = {
+    headerStyle: {
+        backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : ''
     },
-    CategoryMeals: {
-        screen: CategoryMealsScreen,
-    },
-    MealDetail: MealDetailScreen
-}, {
-    mode: 'modal',
-    // initialRouteName: 'Categories',
-    defaultNavigationOptions: {
-        headerStyle: {
-            backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : ''
-        },
-        headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primaryColor
-    }
+    headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primaryColor
 }
+
+const MealsNavigator = createStackNavigator(
+    {
+        Categories: {
+            screen: CategoriesScreen
+        },
+        CategoryMeals: {
+            screen: CategoryMealsScreen,
+        },
+        MealDetail: MealDetailScreen
+    },
+    {
+        defaultNavigationOptions: defaultStackNavOptions
+    }
+)
+
+const FavNavigator = createStackNavigator(
+    {
+        Favorites: FavoritesScreen,
+        MealDetail: MealDetailScreen
+    },
+    {
+        // initialRouteName: 'Categories',
+        defaultNavigationOptions: defaultStackNavOptions
+    }
 )
 
 const tabScreenConfig = {
@@ -54,7 +67,7 @@ const tabScreenConfig = {
         }
     },
     Favorites: {
-        screen: FavoritesScreen,
+        screen: FavNavigator,
         navigationOptions: {
             tabBarIcon: (tabInfo) => {
                 return <Ionicons name='ios-star' size={25} color={tabInfo.tintColor} />
