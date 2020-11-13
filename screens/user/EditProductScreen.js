@@ -12,9 +12,10 @@ import {
     Platform
 } from 'react-native'
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import HeaderButton from "../../components/UI/HeaderButton";
+import * as productsActions from '../../store/actions/products'
 
 const EditProductScreen = props => {
 
@@ -26,6 +27,7 @@ const EditProductScreen = props => {
                     prod.id === prodId
             )
     )
+    const dispatch = useDispatch()
 
     const [title, setTitle] = useState(editedProduct ? editedProduct.title : '')
     const [imageUrl, setImageUrl] = useState(editedProduct ? editedProduct.imageUrl : '')
@@ -33,8 +35,18 @@ const EditProductScreen = props => {
     const [description, setDescription] = useState(editedProduct ? editedProduct.description : '')
 
     const submitHandler = useCallback(() => {
-        console.log('Submitting');
-    }, [])
+        if (editedProduct) {
+            dispatch(
+                productsActions.updateProduct(prodId, title, description, imageUrl
+                )
+            )
+        }
+        else {
+            dispatch(
+                productsActions.createProduct(title, description, imageUrl, +price)
+            )
+        }
+    }, [dispatch, prodId, title, description, imageUrl, price])
 
     useEffect(
         () => {
