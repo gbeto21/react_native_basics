@@ -39,9 +39,10 @@ export const fetchProducts = () => {
 }
 
 export const delteProduct = productId => {
-    return async dispatch => {
+    return async (dispatch, getState) => {
+        const token = getState().auth.token
         const response = await fetch(
-            `https://rn-complete-guide-539da.firebaseio.com/products/${productId}.json`,
+            `https://rn-complete-guide-539da.firebaseio.com/products/${productId}.json?auth=${token}`,
             {
                 method: 'DELETE'
             }
@@ -61,9 +62,10 @@ export const createProduct = (
     imageUrl,
     price
 ) => {
-    return async dispatch => {
+    return async (dispatch, getState) => {
+        const token = getState().auth.token
         const response = await fetch(
-            'https://rn-complete-guide-539da.firebaseio.com/products.json',
+            `https://rn-complete-guide-539da.firebaseio.com/products.json?auth=${token}`,
             {
                 method: 'POST',
                 headers: {
@@ -96,9 +98,11 @@ export const createProduct = (
 }
 
 export const updateProduct = (id, title, description, imageUrl) => {
-    return async dispatch => {
+    return async (dispatch, getState) => {
+
+        const token = getState().auth.token
         const respose = await fetch(
-            `https://rn-complete-guide-539da.firebaseio.com/products/${id}.json`,
+            `https://rn-complete-guide-539da.firebaseio.com/products/${id}.json?auth=${token}`,
             {
                 method: 'PATCH',
                 headers: {

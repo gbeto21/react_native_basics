@@ -29,7 +29,7 @@ export const signup = (email, password) => {
         }
 
         const resData = await response.json()
-        dispatch({ type: SINGUP })
+        dispatch({ type: SINGUP, token: resData.idToken, userId: resData.localId })
     }
 }
 
@@ -63,8 +63,7 @@ export const login = (email, password) => {
             throw new Error(message)
         }
         const resData = await response.json()
-
-        dispatch({ type: LOGIN })
+        dispatch({ type: LOGIN, token: resData.idToken, userId: resData.localId })
     }
 }
 
