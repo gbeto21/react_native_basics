@@ -39,9 +39,14 @@ export const fetchProducts = () => {
 }
 
 export const delteProduct = productId => {
-    return {
-        type: DELETE_PRODUCT,
-        pid: productId
+    return async dispatch => {
+        await fetch(
+            `https://rn-complete-guide-539da.firebaseio.com/products/${productId}.json`,
+            {
+                method: 'DELETE'
+            }
+        )
+        dispatch({ type: DELETE_PRODUCT, pid: productId })
     }
 }
 
@@ -85,19 +90,33 @@ export const createProduct = (
     }
 }
 
-export const updateProduct = (
-    id,
-    title,
-    description,
-    imageUrl
-) => {
-    return {
-        type: UPDATE_PRODUCT,
-        pid: id,
-        productData: {
-            title,
-            description,
-            imageUrl
-        }
-    }
-}
+export const updateProduct = (id, title, description, imageUrl) => {
+    return async dispatch => {
+        await fetch(
+            `https://rn-complete-guide-539da.firebaseio.com/products/${id}.json`,
+            {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    title,
+                    description,
+                    imageUrl
+                })
+            }
+        );
+
+        dispatch({
+            type: UPDATE_PRODUCT,
+            pid: id,
+            productData: {
+                title,
+                description,
+                imageUrl
+            }
+        });
+    };
+};
+
+//`https://rn-complete-guide-539da.firebaseio.com/products/${id}.json`,
