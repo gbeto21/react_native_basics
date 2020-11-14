@@ -3,7 +3,9 @@ import {
     FlatList,
     Button,
     Platform,
-    Alert
+    Alert,
+    View,
+    Text
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
@@ -46,6 +48,14 @@ const UserProductsScreen = props => {
                     }
                 }
             ])
+    }
+
+    if (userProducts.length === 0) {
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <Text>No products found, maybe create some.</Text>
+            </View>
+        )
     }
 
     return (
