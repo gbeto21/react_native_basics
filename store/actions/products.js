@@ -127,5 +127,3 @@ export const updateProduct = (id, title, description, imageUrl) => {
         });
     };
 };
-
-//`https://rn-complete-guide-539da.firebaseio.com/products/${id}.json`,
