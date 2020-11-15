@@ -7,26 +7,26 @@ import {
   TextInput,
   StyleSheet
 } from 'react-native';
-import { useDispatch } from "react-redux";
+import { useDispatch } from 'react-redux';
 
 import Colors from '../constants/Colors';
-import * as placesActions from '../store/places-actions'
-import ImagePicker from '../components/ImagePicker'
+import * as placesActions from '../store/places-actions';
+import ImagePicker from '../components/ImagePicker';
 
 const NewPlaceScreen = props => {
   const [titleValue, setTitleValue] = useState('');
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const titleChangeHandler = text => {
     // you could add validation
     setTitleValue(text);
   };
 
-  const savePlceHandler = () => {
-    dispatch(placesActions.addPlace(titleValue))
-    props.navigation.goBack()
-  }
+  const savePlaceHandler = () => {
+    dispatch(placesActions.addPlace(titleValue));
+    props.navigation.goBack();
+  };
 
   return (
     <ScrollView>
@@ -41,7 +41,7 @@ const NewPlaceScreen = props => {
         <Button
           title="Save Place"
           color={Colors.primary}
-          onPress={savePlceHandler}
+          onPress={savePlaceHandler}
         />
       </View>
     </ScrollView>
