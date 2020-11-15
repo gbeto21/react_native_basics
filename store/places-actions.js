@@ -23,7 +23,8 @@ export const addPlace = (title, image, location) => {
       throw new Error('Something went wrong fetching the address in the response.')
     }
 
-    const address = resData.results[0].fromatted_address
+    //const address = resData.results[0].fromatted_address
+    const address = 'DEFAULT_ADDRESS'
     const fileName = image.split('/').pop();
     const newPath = FileSystem.documentDirectory + fileName;
 
